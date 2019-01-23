@@ -19,10 +19,12 @@ while True:
             travel_dict[city] = {}
 
         for info in info_list:
-            type, capacity = info.split('-')
+            type = info.split('-')[0]
+            capacity = info.split('-')[1]
             travel_dict[city][type] = int(capacity)
     else:
-        destination, people = data.split()
+        destination = data.split()[0]
+        people = data.split()[1]
 
         if destination in travellers:
             travellers[destination] += int(people)
@@ -30,8 +32,9 @@ while True:
             travellers[destination] = int(people)
 
 for city, people_count in travellers.items():
-    available = sum(travel_dict[city].values())
-    if people_count <= available:
-        print(f'{city} -> all {people_count} accommodated')
-    else:
-        print(f'{city} -> all except {people_count - available} accommodated')
+    if city in travel_dict:
+        available = sum(travel_dict[city].values())
+        if people_count <= available:
+            print(f'{city} -> all {people_count} accommodated')
+        else:
+            print(f'{city} -> all except {people_count - available} accommodated')
