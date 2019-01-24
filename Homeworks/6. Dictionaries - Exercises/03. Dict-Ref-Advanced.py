@@ -6,7 +6,7 @@ while not data == 'end':
     value = data.split(' -> ')[1]
 
     if value in dict_ref:
-        dict_ref[key] = dict_ref[value]
+        dict_ref[key] = dict_ref[value].copy()
     else:
         try:
             values = list(map(int, value.split(', ')))
