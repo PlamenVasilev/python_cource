@@ -14,9 +14,9 @@ while True:
 
     while len(max_nilaprome)>0:
         if max_nilaprome == line[-len(max_nilaprome):]:
-            line = re.sub(r'^'+max_nilaprome+'', '', line)
-            line = re.sub(r'' + max_nilaprome + '$', '', line)
-            print(line+max_nilaprome+line)
+            core = re.sub(r'^'+max_nilaprome+'', '', line)
+            core = re.sub(r'' + max_nilaprome + '$', '', core)
+            print(core+max_nilaprome+core)
             break
         else:
             max_nilaprome = max_nilaprome[:-1]
