@@ -1,3 +1,5 @@
+import re
+
 rows_count = int(input())
 rows = []
 
@@ -6,18 +8,29 @@ while rows_count > 0:
     rows.append(row)
     rows_count -= 1
 
-last_row = rows.pop()
+found = ''
+found_len = 0
+for r in range(0, len(rows)):
+    char_count = {}
+    for char in rows[r]:
+        if found:
+            if r+1 < len(rows):
+                search_len = found_len + 2
+                search = char*search_len
+                regex = '['+search+']{'+str(search_len)+'}'
+                if re.search(regex, rows[r+1], re.IGNORECASE):
+                    found = search
+                    found_len = search_len
+                    break
+        else:
+            if r + 1 < len(rows):
+                if re.search('['+char+']{2}', rows[r+1], re.IGNORECASE):
+                    found = char
+                    found_len = 3
+                    break
 
-char_count = {}
-for char in set(last_row):
-    char_count[char] = last_row.count(char)
-
-maxed = sorted(char_count, key=char_count.get, reverse=True)[0]
-height = int((last_row.count(maxed)+1)/2)
-
-for r in range(0,height):
+for r in range(0,int((found_len+1)/2)):
     if r == 0:
-        print(maxed)
+        print(found[0])
     else:
-        print(maxed * ((r*2)+1))
-
+        print(found[0] * ((r*2)+1))
