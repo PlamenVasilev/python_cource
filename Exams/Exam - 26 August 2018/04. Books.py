@@ -51,14 +51,16 @@ while True:
         else:
             print("No such book here")
     else:
-        f_part, s_part = data.split(' -> ')
+        try:
+            f_part, s_part = data.split(' -> ')
 
-        title = f_part.split(' ')[0]
-        author = f_part.split(' ')[1]
-        price = f_part.split(' ')[2]
-        chapters = s_part.split(',')
+            title = f_part.split(' ')[0]
+            author = f_part.split(' ')[1]
+            price = f_part.split(' ')[2]
+            chapters = s_part.split(',')
 
-        if title and author and float(price) >= 0.01:
-            if title not in books:
-                books[title] = Book(title, author, price, chapters)
-
+            if title and author and float(price) >= 0.01:
+                if title not in books:
+                    books[title] = Book(title, author, price, chapters)
+        except:
+            pass
